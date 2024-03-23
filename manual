@@ -9,14 +9,15 @@ Ansible Мануал:
 | ansible —version
 | cd /etc/ansible
 | cat  host
-| nano ansible.cfg (файл знизу)
+| nano ansible.cfg (файл ansible 1.cfg)
 | nano hosts (ввести ip потрібного хоста для зʼєднання з самого верху)
 | mkdir playbook
 | nano ping-pong.yml далі буде
 ——————
 Встановлювати на ubuntu
  — Для windows - Power shell від імені адміна
-| set-executionpolicy unrestricПродовження:
+| set-executionpolicy unrestric
+Продовження:
 |------------------------ —Плейбук на пінг
 | nano ping-pong.yml
 —- 
@@ -35,6 +36,7 @@ Ansible Мануал:
 | Поставити apt install python3-pip
 | pip install "pywinrm>=0.3.0"
 | Вставити в hosts таке: 
+-------------------
 [Назва] #група
 АЙПІШКИ
 [Назва:vars] #присвоєння групі 
@@ -44,6 +46,7 @@ ansible_connection = winrm
 ansible_port = 5985
 ansible_winrm_transport = basic
 ansible_winrm_server_cert_validation = ignore
+------------------
 
 |--------------------------------- —Плейбук на reboot
 | nano reboot.yml
@@ -59,4 +62,4 @@ ansible_winrm_server_cert_validation = ignore
     - name: Reboot Windows
       win_shell: shutdown /r /f /t 0 #(win) для вінди | ключ /r ребут а /p павер оф | ключ /t час до офа
 —-----------------------------
-| run (файл знизу)
+| run (файл ConfigureRemoutingForAnsible.ps)
