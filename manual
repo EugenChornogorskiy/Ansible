@@ -1,0 +1,62 @@
+Ansible Мануал:
+| apt update
+| apt install software-properties-common
+| sudo add-apt-repository --yes --update ppa:ansible/ansible
+| apt install ansible
+
+— Сайт з документацією - https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html
+
+| ansible —version
+| cd /etc/ansible
+| cat  host
+| nano ansible.cfg (файл знизу)
+| nano hosts (ввести ip потрібного хоста для зʼєднання з самого верху)
+| mkdir playbook
+| nano ping-pong.yml далі буде
+——————
+Встановлювати на ubuntu
+ — Для windows - Power shell від імені адміна
+| set-executionpolicy unrestricПродовження:
+|------------------------ —Плейбук на пінг
+| nano ping-pong.yml
+—- 
+- hosts: all #(хости для пінга)
+  gather_facts: no #(перевірка(ні))
+
+  tasks: 
+
+  - name: PIN-PONG #(Назва(невпливає яка)
+    win_ping: #(Важливо)(win для вінди)
+-------------------------------
+| —Запуск якщо хост лінукс 
+| ansible-playbook -i /etc/ansible/hosts (Плейбук)
+-----------------------------------
+| —Запуск якщо хост віндовс 
+| Поставити apt install python3-pip
+| pip install "pywinrm>=0.3.0"
+| Вставити в hosts таке: 
+[Назва] #група
+АЙПІШКИ
+[Назва:vars] #присвоєння групі 
+ansible_user = Local_user
+ansible_password = pass
+ansible_connection = winrm
+ansible_port = 5985
+ansible_winrm_transport = basic
+ansible_winrm_server_cert_validation = ignore
+
+|--------------------------------- —Плейбук на reboot
+| nano reboot.yml
+----------------------------------------
+---
+- hosts: all
+  gather_facts: no   #false
+
+ 
+  tasks:
+
+ 
+    - name: Reboot Windows
+      win_shell: shutdown /r /f /t 0 #(win) для вінди | ключ /r ребут а /p павер оф | ключ /t час до офа
+—-----------------------------
+| run (файл знизу)
